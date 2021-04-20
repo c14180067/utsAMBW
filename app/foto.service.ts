@@ -111,12 +111,10 @@ export class FotoService {
         });
       }
     }
-    
-    //console.log(this.foto)
   }
 }
 
-export interface  Photo {
+export interface Photo {
   filePath : string;
   webviewPath: string;
   dataImage : File

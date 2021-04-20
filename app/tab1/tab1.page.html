@@ -1,17 +1,47 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      TodoList
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Tab 1</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <app-explore-container name="Tab 1 page"></app-explore-container>
+  <div class="container">
+    <ion-card>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="stacked">Topik Reminder</ion-label>
+          <ion-input [(ngModel)]="topik"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Tanggal</ion-label>
+          <ion-datetime [(ngModel)]="tanggal" displayFormat="DD MM YYYY" placeholder="{{currentDate | date:'dd MM yyyy'}}"></ion-datetime>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Waktu</ion-label>
+          <ion-input [(ngModel)]="waktu" disabled=true></ion-input>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <h1 style="text-align: center;">List Foto</h1>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="4" *ngFor="let foto of fotoService.dataFoto; let i = index">
+        <ion-img id="{{i}}" [src]="foto.webviewPath" (click)="select(foto,i)"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <div style="text-align:center;">
+    <ion-button shape="round" (click)="tambahFoto()" style="text-align:center">
+      <ion-icon name="aperture-outline"></ion-icon>
+    </ion-button>
+  </div>
+  <div style="text-align:center;">
+    <ion-button color="primary" (click)="uploadData()">UPLOAD DATA</ion-button>
+  </div>
+</ion-footer>
