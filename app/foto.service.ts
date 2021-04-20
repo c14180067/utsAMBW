@@ -12,9 +12,14 @@ export class FotoService {
   public dataFoto : Photo[] = [];
   private keyFoto : string = "foto";
   private platform : Platform
+  public fsPhoto : string[] = [];
 
   constructor(platform: Platform) { 
     this.platform = platform;
+  }
+
+  public setfsPhoto(photo) {
+    this.fsPhoto = photo;
   }
 
   public async tambahFoto() {

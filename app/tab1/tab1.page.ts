@@ -32,26 +32,6 @@ export class Tab1Page {
 
   async ngOnInit() {
     await this.fotoService.loadFoto();
-    this.tampilkanData();
-  }
-
-  tampilkanData() {
-    this.dataImage = [];
-    var refImage = this.afStorage.storage.ref('imgStorage');
-    refImage.listAll()
-      .then((res) => {
-        res.items.forEach((itemRef) => {
-          itemRef.getDownloadURL().then(url => {
-            var data = {
-              'nama': itemRef.name,
-              'url': url
-            }
-            this.dataImage.unshift(data)
-          })
-        })
-      }).catch((error) =>{
-        console.log(error)
-      })
   }
 
   tambahFoto() {
@@ -83,7 +63,8 @@ export class Tab1Page {
     var urlPhoto : string[] = [];
     if(this.selectedPhoto.length >= 2) {
       for(var i = 0; i < this.selectedPhoto.length; i++) {
-        urlPhoto.push(this.selectedPhoto[i].filePath)
+        var path =  "https://firebasestorage.googleapis.com/v0/b/utsmobdev.appspot.com/o/imgStorage%2F"+this.selectedPhoto[i].filePath+"?alt=media&token=42a14eea-13cd-4629-ab58-3e68573ffa0d"
+        urlPhoto.push(path)
         const imgFilePath = `imgStorage/${this.selectedPhoto[i].filePath}`
         this.afStorage.upload(imgFilePath, this.selectedPhoto[i].dataImage).then(() => {
          this.afStorage.storage.ref().child(imgFilePath).getDownloadURL().then(url => {
@@ -101,6 +82,7 @@ export class Tab1Page {
         this.waktu = this.currentDate.toLocaleTimeString();
         this.tanggal = '';
       })
+      this.fotoService.setfsPhoto(urlPhoto);
       this.selectedPhoto = [];
       this.presentAlert("Data Todo berhasil di upload!");
     }
@@ -113,7 +95,7 @@ export class Tab1Page {
   }
 }
 
-interface data {
+export interface data {
   topik : string,
   tanggal : string,
   waktu : string,

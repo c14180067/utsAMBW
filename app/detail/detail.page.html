@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Detail TodoList</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content *ngFor="let data of isiData | async">
+      <h1><ion-input [(ngModel)]="topik" placeholder="{{data.topik}}"></ion-input></h1>
+      <ion-label position="stacked">Tanggal</ion-label>
+      <ion-datetime [(ngModel)]="tanggal" displayFormat="DD MM YYYY" placeholder="{{data.tanggal | date:'dd MM yyyy'}}"></ion-datetime>
+      <ion-label>{{data.waktu}}</ion-label>
+        <ion-grid>
+          <ion-row>
+            <ion-col size="4" *ngFor="let foto of data.foto">
+              <ion-img [src]="foto"></ion-img>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <div style="text-align:center;">
+    <ion-button color="primary" shape="rounded" (click)="update()">UPDATE DATA</ion-button>
+  </div>
+</ion-content>
